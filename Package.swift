@@ -37,16 +37,20 @@ let package = Package(
             name: "YapDatabase",
             dependencies: ["SQLCipher"],
             cSettings: [
-                .define("SQLITE_HAS_CODEC", to: "1"),
+                .define("SQLITE_HAS_CODEC"),
                 .headerSearchPath("privateInclude"),
             ]
         ),
         .target(
             name: "SwiftYapDatabase",
-            dependencies: ["YapDatabase"]
+            dependencies: ["YapDatabase"],
+            cSettings: [
+                .define("SQLITE_HAS_CODEC"),
+            ]
         ),
         .testTarget(
             name: "SwiftYapDatabaseTests",
-            dependencies: ["SwiftYapDatabase"]),
+            dependencies: ["SwiftYapDatabase"]
+        ),
     ]
 )
