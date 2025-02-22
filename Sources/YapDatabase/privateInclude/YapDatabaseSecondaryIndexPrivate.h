@@ -12,11 +12,7 @@
 #import "YapMutationStack.h"
 #import "YapDatabaseStatement.h"
 
-#ifdef SQLITE_HAS_CODEC
-  #import <SQLCipher/sqlite3.h>
-#else
-  #import "sqlite3.h"
-#endif
+#import "sqlite3.h"
 
 /**
  * This version number is stored in the yap2 table.
