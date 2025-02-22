@@ -25,8 +25,15 @@ let package = Package(
         .target(
             name: "YapDatabase",
             dependencies: [],
+            sources: [
+                "SQLCipher/sqlite3.c"
+            ],
             cSettings: [
-                .headerSearchPath("privateInclude")
+                .headerSearchPath("privateInclude"),
+                .define("SQLITE_HAS_CODEC"),
+                .define("SQLITE_TEMP_STORE", to: "3"),
+                .define("SQLCIPHER_CRYPTO_CC"),
+                .define("NDEBUG")
             ]
         ),
         .target(
