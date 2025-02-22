@@ -1,4 +1,4 @@
-# Swift-YapDatabase
+# Swift-YapDatabase with SQLCipher support
 
 [YapDatabase](https://github.com/yapstudios/YapDatabase), converted to a Swift Package.
 
