@@ -11,7 +11,7 @@
 #import "YapCache.h"
 #import "YapMutationStack.h"
 
-#import <SQLCipher/sqlite3.h>
+#import "sqlite3.h"
 
 /**
  * This version number is stored in the yap2 table.

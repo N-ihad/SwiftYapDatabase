@@ -13,7 +13,7 @@
 #import "YapMemoryTable.h"
 #import "YapMutationStack.h"
 
-#import <SQLCipher/sqlite3.h>
+#import "sqlite3.h"
 #import "yap_vfs_shim.h"
 
 NS_ASSUME_NONNULL_BEGIN

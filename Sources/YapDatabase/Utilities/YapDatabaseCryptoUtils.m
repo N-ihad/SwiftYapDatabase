@@ -6,7 +6,7 @@
 #import "YapDatabaseCore.h"
 #import "YapDatabaseLogging.h"
 
-#import <SQLCipher/sqlite3.h>
+#import "sqlite3.h"
 
 #import <CommonCrypto/CommonCrypto.h>
 #import <objc/runtime.h>

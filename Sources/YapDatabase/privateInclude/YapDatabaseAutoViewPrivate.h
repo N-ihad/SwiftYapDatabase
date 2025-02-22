@@ -13,7 +13,7 @@
 
 #import "YapMemoryTable.h"
 
-#import <SQLCipher/sqlite3.h>
+#import "sqlite3.h"
 
 @class YapCache;
 @class YapCollectionKey;

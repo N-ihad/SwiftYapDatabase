@@ -7,7 +7,7 @@
 #import "YapDatabaseConnectionState.h"
 #import "YapDatabaseLogging.h"
 #import "YapDatabaseString.h"
-#import <SQLCipher/sqlite3.h>
+#import "sqlite3.h"
 #import <mach/mach_time.h>
 #import <os/log.h>
 #import <stdatomic.h>
