@@ -13,11 +13,7 @@
 #import "YapMemoryTable.h"
 #import "YapMutationStack.h"
 
-#ifdef SQLITE_HAS_CODEC
-  #import <SQLCipher/sqlite3.h>
-#else
-  #import "sqlite3.h"
-#endif
+#import "sqlite3.h"
 #import "yap_vfs_shim.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -187,12 +183,10 @@ static NSString *const ext_key_class = @"class";
 - (BOOL)aggressiveCheckpointEnabled;
 - (void)noteCheckpointWithTotalFrames:(int)totalFrameCount checkpointedFrames:(int)checkpointedFrameCount;
 
-#ifdef SQLITE_HAS_CODEC
 /**
  * Configures database encryption via SQLCipher.
   */
 - (BOOL)configureEncryptionForDatabase:(sqlite3 *)sqlite;
-#endif
 
 @end
 

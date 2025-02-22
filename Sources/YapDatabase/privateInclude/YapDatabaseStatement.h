@@ -1,10 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#ifdef SQLITE_HAS_CODEC
-  #import <SQLCipher/sqlite3.h>
-#else
-  #import "sqlite3.h"
-#endif
+#import "sqlite3.h"
 
 /**
  * Simple wrapper class to facilitate storing sqlite3_stmt items as objects (primarily in YapCache).
