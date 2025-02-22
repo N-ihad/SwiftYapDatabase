@@ -37,8 +37,8 @@ let package = Package(
             name: "YapDatabase",
             dependencies: ["SQLCipher"],
             cSettings: [
+                .define("SQLITE_HAS_CODEC", to: "1"),
                 .headerSearchPath("privateInclude"),
-                .define("SQLITE_HAS_CODEC"),
             ]
         ),
         .target(
