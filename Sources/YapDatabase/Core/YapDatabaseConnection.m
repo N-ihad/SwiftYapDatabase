@@ -357,8 +357,10 @@ static int connectionBusyHandler(void *ptr, int count)
                 
 				sqlite3_busy_handler(db, connectionBusyHandler, (__bridge void *)self);
                 
+#ifdef SQLITE_HAS_CODEC
 				// Configure SQLCipher encryption (if needed)
 				[database configureEncryptionForDatabase:db];
+#endif
 			}
 		}
 		

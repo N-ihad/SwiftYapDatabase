@@ -6,6 +6,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#ifdef SQLITE_HAS_CODEC
+
 extern const NSUInteger kSqliteHeaderLength;
 extern const NSUInteger kSQLCipherSaltLength;
 extern const NSUInteger kSQLCipherDerivedKeyLength;
@@ -151,5 +153,7 @@ typedef void (^YapDatabaseKeySpecBlock)(NSData *keySpecData);
 + (NSString *)hexadecimalStringForData:(NSData *)data;
 
 @end
+
+#endif
 
 NS_ASSUME_NONNULL_END

@@ -26,11 +26,7 @@ let package = Package(
             name: "YapDatabase",
             dependencies: [],
             cSettings: [
-                .headerSearchPath("privateInclude"),
-                .define("SQLITE_HAS_CODEC", to: "1"),
-                .define("SQLITE_TEMP_STORE", to: "3"),
-                .define("SQLCIPHER_CRYPTO_CC", to: nil),
-                .define("NDEBUG", to: "1"),
+                .headerSearchPath("privateInclude")
             ]
         ),
         .target(
