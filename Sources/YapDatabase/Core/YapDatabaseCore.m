@@ -7,7 +7,13 @@
 #import "YapDatabaseConnectionState.h"
 #import "YapDatabaseLogging.h"
 #import "YapDatabaseString.h"
-#import "sqlite3.h"
+
+#ifdef SQLITE_HAS_CODEC
+  #import <SQLCipher/sqlite3.h>
+#else
+  #import "sqlite3.h"
+#endif
+
 #import <mach/mach_time.h>
 #import <os/log.h>
 #import <stdatomic.h>
@@ -464,7 +470,9 @@ static YDBLogHandler logHandler = nil;
 			BOOL result = YES;
 			
 			if (result) result = [self openDatabase];
+		#ifdef SQLITE_HAS_CODEC
 			if (result) result = [self configureEncryptionForDatabase:db];
+		#endif
 			if (result) result = [self configureDatabase:isNewDatabaseFile];
 			if (result) result = [self createTables];
 			
@@ -844,6 +852,8 @@ static YDBLogHandler logHandler = nil;
 	return YES;
 }
 
+
+#ifdef SQLITE_HAS_CODEC
 /**
  * Configures database encryption via SQLCipher.
 **/
@@ -1013,6 +1023,8 @@ static YDBLogHandler logHandler = nil;
     }
     return [hexString copy];
 }
+
+#endif
 
 /**
  * Creates the database tables we need:

@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, YapDatabasePragmaSynchronous) {
 	YapDatabasePragmaSynchronous_Full   = 2,
 };
 
+#ifdef SQLITE_HAS_CODEC
 typedef NSData *_Nonnull (^YapDatabaseCipherKeyBlock)(void);
 
 typedef NS_ENUM(NSInteger, YapDatabaseCipherCompatability) {
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, YapDatabaseCipherCompatability) {
     YapDatabaseCipherCompatability_Version3  = 3,
     YapDatabaseCipherCompatability_Version4  = 4,
 };
+#endif
 
 @interface YapDatabaseOptions : NSObject <NSCopying>
 
@@ -158,6 +160,7 @@ typedef NS_ENUM(NSInteger, YapDatabaseCipherCompatability) {
  */
 @property (nonatomic, assign, readwrite) NSInteger pragmaMMapSize;
 
+#ifdef SQLITE_HAS_CODEC
 /**
  * Set a block here that returns the key for the SQLCipher database.
  *
@@ -287,6 +290,8 @@ typedef NS_ENUM(NSInteger, YapDatabaseCipherCompatability) {
  * For more information, see comments in YapDatabaseCryptoUtils.h.
   */
 @property (nonatomic, assign, readwrite) NSUInteger cipherUnencryptedHeaderLength;
+
+#endif
 
 /**
  * There are a few edge-case scenarios where the sqlite WAL (write-ahead log) file
