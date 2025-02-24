@@ -19,6 +19,7 @@
 @synthesize pragmaJournalSizeLimit = pragmaJournalSizeLimit;
 @synthesize pragmaPageSize = pragmaPageSize;
 @synthesize pragmaMMapSize = pragmaMMapSize;
+#ifdef SQLITE_HAS_CODEC
 @synthesize cipherKeyBlock = cipherKeyBlock;
 @synthesize kdfIterNumber = kdfIterNumber;
 @synthesize cipherDefaultkdfIterNumber = cipherDefaultkdfIterNumber;
@@ -27,6 +28,7 @@
 @synthesize cipherKeySpecBlock = cipherKeySpecBlock;
 @synthesize cipherUnencryptedHeaderLength = cipherUnencryptedHeaderLength;
 @synthesize cipherCompatability = cipherCompatability;
+#endif
 @synthesize aggressiveWALTruncationSize = aggressiveWALTruncationSize;
 @synthesize enableMultiProcessSupport = enableMultiProcessSupport;
 
@@ -53,6 +55,7 @@
 	copy->pragmaJournalSizeLimit = pragmaJournalSizeLimit;
 	copy->pragmaPageSize = pragmaPageSize;
 	copy->pragmaMMapSize = pragmaMMapSize;
+#ifdef SQLITE_HAS_CODEC
     copy->cipherKeyBlock = cipherKeyBlock;
     copy->kdfIterNumber = kdfIterNumber;
     copy->cipherDefaultkdfIterNumber = cipherDefaultkdfIterNumber;
@@ -61,6 +64,7 @@
     copy->cipherKeySpecBlock = cipherKeySpecBlock;
     copy->cipherUnencryptedHeaderLength = cipherUnencryptedHeaderLength;
     copy->cipherCompatability = cipherCompatability;
+#endif
 	copy->aggressiveWALTruncationSize = aggressiveWALTruncationSize;
     copy->enableMultiProcessSupport = enableMultiProcessSupport;
 	
