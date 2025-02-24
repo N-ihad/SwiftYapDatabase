@@ -25,12 +25,16 @@ let package = Package(
         .target(
             name: "SQLCipher",
             dependencies: [],
-            publicHeadersPath: "include",
             cSettings: [
+                .headerSearchPath("include"),
                 .define("SQLITE_HAS_CODEC", to: "1"),
                 .define("SQLITE_TEMP_STORE", to: "3"),
                 .define("SQLCIPHER_CRYPTO_CC", to: nil),
                 .define("NDEBUG", to: "1"),
+            ],
+            linkerSettings: [
+                .linkedFramework("Foundation"),
+                .linkedFramework("Security")
             ]
         ),
         .target(
@@ -38,7 +42,10 @@ let package = Package(
             dependencies: ["SQLCipher"],
             cSettings: [
                 .headerSearchPath("privateInclude"),
-                .define("SQLITE_HAS_CODEC")
+                .define("SQLITE_HAS_CODEC", to: "1"),
+                .define("SQLITE_TEMP_STORE", to: "3"),
+                .define("SQLCIPHER_CRYPTO_CC", to: nil),
+                .define("NDEBUG", to: "1")
             ]
         ),
         .target(

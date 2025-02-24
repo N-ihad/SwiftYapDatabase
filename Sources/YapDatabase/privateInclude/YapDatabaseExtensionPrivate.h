@@ -10,11 +10,7 @@
 
 #import "YapCollectionKey.h"
 
-#ifdef SQLITE_HAS_CODEC
-  #import <SQLCipher/sqlite3.h>
-#else
-  #import "sqlite3.h"
-#endif
+#import <SQLCipher/sqlite3.h>
 
 
 typedef NS_OPTIONS(NSUInteger, YapDatabaseConnectionFlushMemoryFlags_Extension) {
