@@ -5,7 +5,11 @@
 extern "C" {
 #endif
 	
-#include "sqlite3.h"
+#ifdef SQLITE_HAS_CODEC
+  #include <SQLCipher/sqlite3.h>
+#else
+  #include "sqlite3.h"
+#endif
 #include "stdbool.h"
 
 struct yap_vfs;
