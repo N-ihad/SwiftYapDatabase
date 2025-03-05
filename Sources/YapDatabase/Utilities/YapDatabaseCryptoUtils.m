@@ -6,18 +6,12 @@
 #import "YapDatabaseCore.h"
 #import "YapDatabaseLogging.h"
 
-#ifdef SQLITE_HAS_CODEC
-  #import <SQLCipher/sqlite3.h>
-#else
-  #import "sqlite3.h"
-#endif
+#import <SQLCipher/sqlite3.h>
 
 #import <CommonCrypto/CommonCrypto.h>
 #import <objc/runtime.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-#ifdef SQLITE_HAS_CODEC
 
 #if DEBUG
   static const int ydbLogLevel = YDBLogLevelInfo;
@@ -490,7 +484,5 @@ NSError *YDBErrorWithDescription(NSString *description)
 }
 
 @end
-
-#endif
 
 NS_ASSUME_NONNULL_END

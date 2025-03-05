@@ -12,12 +12,7 @@
 #import "YapDatabaseViewPrivate.h"
 
 #import "YapMemoryTable.h"
-
-#ifdef SQLITE_HAS_CODEC
-  #import <SQLCipher/sqlite3.h>
-#else
-  #import "sqlite3.h"
-#endif
+#import <SQLCipher/sqlite3.h>
 
 @class YapCache;
 @class YapCollectionKey;

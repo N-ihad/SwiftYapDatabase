@@ -4,12 +4,8 @@
 #if defined __cplusplus
 extern "C" {
 #endif
-	
-#ifdef SQLITE_HAS_CODEC
-  #include <SQLCipher/sqlite3.h>
-#else
-  #include "sqlite3.h"
-#endif
+
+#include <SQLCipher/sqlite3.h>
 #include "stdbool.h"
 
 struct yap_vfs;

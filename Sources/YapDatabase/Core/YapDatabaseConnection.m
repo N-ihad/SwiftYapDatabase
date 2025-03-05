@@ -356,11 +356,9 @@ static int connectionBusyHandler(void *ptr, int count)
 				//   Note: In all my testing, I've only seen the busy_handler called once per db.
                 
 				sqlite3_busy_handler(db, connectionBusyHandler, (__bridge void *)self);
-                
-#ifdef SQLITE_HAS_CODEC
-				// Configure SQLCipher encryption (if needed)
+
+				// Configure SQLCipher encryption
 				[database configureEncryptionForDatabase:db];
-#endif
 			}
 		}
 		
