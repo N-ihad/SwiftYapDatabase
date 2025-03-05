@@ -4,8 +4,8 @@
 #if defined __cplusplus
 extern "C" {
 #endif
-	
-#include "sqlite3.h"
+
+#include <SQLCipher/sqlite3.h>
 #include "stdbool.h"
 
 struct yap_vfs;
