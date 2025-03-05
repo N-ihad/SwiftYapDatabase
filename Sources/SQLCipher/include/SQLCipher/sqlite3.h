@@ -3933,7 +3933,7 @@ SQLITE_API sqlite3_file *sqlite3_database_file_object(const char*);
 ** corruption or segfaults may occur. The value Y should not be
 ** used again after sqlite3_free_filename(Y) has been called.  This means
 ** that if the [sqlite3_vfs.xOpen()] method of a VFS has been called using Y,
-** then the corresponding [sqlite3_cipher_module.xClose() method should also be
+** then the corresponding [sqlite3_module.xClose() method should also be
 ** invoked prior to calling sqlite3_free_filename(Y).
 */
 SQLITE_API sqlite3_filename sqlite3_create_filename(
@@ -7352,11 +7352,11 @@ SQLITE_API void sqlite3_reset_auto_extension(void);
 typedef struct sqlite3_vtab sqlite3_vtab;
 typedef struct sqlite3_index_info sqlite3_index_info;
 typedef struct sqlite3_vtab_cursor sqlite3_vtab_cursor;
-typedef struct sqlite3_cipher_module sqlite3_cipher_module;
+typedef struct sqlite3_module sqlite3_module;
 
 /*
 ** CAPI3REF: Virtual Table Object
-** KEYWORDS: sqlite3_cipher_module {virtual table module}
+** KEYWORDS: sqlite3_module {virtual table module}
 **
 ** This structure, sometimes called a "virtual table module",
 ** defines the implementation of a [virtual table].
@@ -7370,7 +7370,7 @@ typedef struct sqlite3_cipher_module sqlite3_cipher_module;
 ** of this structure must not change while it is registered with
 ** any database connection.
 */
-struct sqlite3_cipher_module {
+struct sqlite3_module {
   int iVersion;
   int (*xCreate)(sqlite3*, void *pAux,
                int argc, const char *const*argv,
@@ -7637,7 +7637,7 @@ struct sqlite3_index_info {
 ** interface is equivalent to sqlite3_create_module_v2() with a NULL
 ** destructor.
 **
-** ^If the third parameter (the pointer to the sqlite3_cipher_module object) is
+** ^If the third parameter (the pointer to the sqlite3_module object) is
 ** NULL then no new module is created and any existing modules with the
 ** same name are dropped.
 **
@@ -7646,13 +7646,13 @@ struct sqlite3_index_info {
 SQLITE_API int sqlite3_create_module(
   sqlite3 *db,               /* SQLite connection to register module with */
   const char *zName,         /* Name of the module */
-  const sqlite3_cipher_module *p,   /* Methods for the module */
+  const sqlite3_module *p,   /* Methods for the module */
   void *pClientData          /* Client data for xCreate/xConnect */
 );
 SQLITE_API int sqlite3_create_module_v2(
   sqlite3 *db,               /* SQLite connection to register module with */
   const char *zName,         /* Name of the module */
-  const sqlite3_cipher_module *p,   /* Methods for the module */
+  const sqlite3_module *p,   /* Methods for the module */
   void *pClientData,         /* Client data for xCreate/xConnect */
   void(*xDestroy)(void*)     /* Module destructor function */
 );
@@ -7693,7 +7693,7 @@ SQLITE_API int sqlite3_drop_modules(
 ** freed by sqlite3_free() and the zErrMsg field will be zeroed.
 */
 struct sqlite3_vtab {
-  const sqlite3_cipher_module *pModule;  /* The module for this virtual table */
+  const sqlite3_module *pModule;  /* The module for this virtual table */
   int nRef;                       /* Number of open cursors */
   char *zErrMsg;                  /* Error message from sqlite3_mprintf() */
   /* Virtual table implementations will typically add additional fields */
@@ -7707,8 +7707,8 @@ struct sqlite3_vtab {
 ** following structure to describe cursors that point into the
 ** [virtual table] and are used
 ** to loop through the virtual table.  Cursors are created using the
-** [sqlite3_cipher_module.xOpen | xOpen] method of the module and are destroyed
-** by the [sqlite3_cipher_module.xClose | xClose] method.  Cursors are used
+** [sqlite3_module.xOpen | xOpen] method of the module and are destroyed
+** by the [sqlite3_module.xClose | xClose] method.  Cursors are used
 ** by the [xFilter], [xNext], [xEof], [xColumn], and [xRowid] methods
 ** of the module.  Each module implementation will define
 ** the content of a cursor structure to suit its own needs.
@@ -12889,15 +12889,15 @@ extern "C" {
 ** CUSTOM AUXILIARY FUNCTIONS
 **
 ** Virtual table implementations may overload SQL functions by implementing
-** the sqlite3_cipher_module.xFindFunction() method.
+** the sqlite3_module.xFindFunction() method.
 */
 
-typedef struct Fts5ExtensionCipherApi Fts5ExtensionCipherApi;
+typedef struct Fts5ExtensionApi Fts5ExtensionApi;
 typedef struct Fts5Context Fts5Context;
 typedef struct Fts5PhraseIter Fts5PhraseIter;
 
 typedef void (*fts5_extension_function)(
-  const Fts5ExtensionCipherApi *pApi,   /* API offered by current FTS version */
+  const Fts5ExtensionApi *pApi,   /* API offered by current FTS version */
   Fts5Context *pFts,              /* First arg to pass to pApi functions */
   sqlite3_context *pCtx,          /* Context for returning result/error */
   int nVal,                       /* Number of values in apVal[] array */
@@ -13163,7 +13163,7 @@ struct Fts5PhraseIter {
 **   This API can be quite slow if used with an FTS5 table created with the
 **   "detail=none" or "detail=column" option.
 */
-struct Fts5ExtensionCipherApi {
+struct Fts5ExtensionApi {
   int iVersion;                   /* Currently always set to 3 */
 
   void *(*xUserData)(Fts5Context*);
@@ -13189,7 +13189,7 @@ struct Fts5ExtensionCipherApi {
   int (*xColumnSize)(Fts5Context*, int iCol, int *pnToken);
 
   int (*xQueryPhrase)(Fts5Context*, int iPhrase, void *pUserData,
-    int(*)(const Fts5ExtensionCipherApi*,Fts5Context*,void*)
+    int(*)(const Fts5ExtensionApi*,Fts5Context*,void*)
   );
   int (*xSetAuxdata)(Fts5Context*, void *pAux, void(*xDelete)(void*));
   void *(*xGetAuxdata)(Fts5Context*, int bClear);
